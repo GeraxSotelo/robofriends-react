@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import { robots } from './robots'; //files doesn't have default export
@@ -23,7 +24,7 @@ class App extends React.Component {
     })
     return (
       <div className="tc">
-        <h1>RoboFriends</h1>
+        <h1 id="title">RoboFriends</h1>
         <SearchBox searchChange={this.onSearchChange} />
         <CardList robots={filteredRobots} />
       </div>
