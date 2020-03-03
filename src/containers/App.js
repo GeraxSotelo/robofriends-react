@@ -29,10 +29,12 @@ class App extends React.Component {
   }
 
   render() {
-    const filteredRobots = this.state.robots.filter(r => {
-      return r.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+    //destructure
+    const { robots, searchfield } = this.state;
+    const filteredRobots = robots.filter(r => {
+      return r.name.toLowerCase().includes(searchfield.toLowerCase())
     })
-    if (this.state.robots.length == 0) {
+    if (!robots.length) {
       return <h1 className="tc">Loading...</h1>
     } else {
 
