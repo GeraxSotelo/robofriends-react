@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import { robots } from './robots'; //files doesn't have default export
-import Scroll from './Scroll'
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import { robots } from '../robots'; //files doesn't have default export
+import Scroll from '../components/Scroll'
 
 
 class App extends React.Component {
