@@ -3,9 +3,9 @@ import Card from './Card';
 
 //use 'props' or destructuring to get 'robots'
 const CardList = ({ robots }) => {
-  if (true) {
-    throw new Error("aaahhhh");
-  }
+  // if (true) {
+  //   throw new Error("aaahhhh");
+  // }
   return (
     <div>
       {robots.map((user) => {
