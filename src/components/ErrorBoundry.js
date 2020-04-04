@@ -8,7 +8,7 @@ class ErrorBoundry extends Component {
     }
   }
 
-  //componentDidCatch is kind of like try catch. If anything errors out, it will run this lifecyle hook
+  //componentDidCatch is like try catch. If anything errors out, it will run this lifecyle hook
   componentDidCatch(error, info) {
     this.setState({ hasError: true })
   }
