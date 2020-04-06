@@ -14,7 +14,7 @@ import { setSearchField } from '../actions.js'
 const mapStateToProps = state => {
   return {
     // The searchField to be return is going to be used as props by the App component
-    searchField: state.searchField
+    searchField: state.searchRobots.searchField
   }
 }
 
