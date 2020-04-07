@@ -7,14 +7,17 @@ import { robots } from '../robots'; //files doesn't have default export
 import Scroll from '../components/Scroll'
 import ErrorBoundry from '../components/ErrorBoundry'
 
-import { setSearchField } from '../actions.js'
+import { setSearchField, requestRobots } from '../actions.js'
 
 //Receive a state and return an object
 //What state to listen to and send down as props
 const mapStateToProps = state => {
   return {
     // The searchField to be return is going to be used as props by the App component
-    searchField: state.searchRobots.searchField
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error
   }
 }
 
@@ -22,28 +25,32 @@ const mapStateToProps = state => {
 //What props to listen to that are actions to be dispatched
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+
+    //redux-thunk is going to catch the fact that this is going to return a function
+    onRequestRobots: () => dispatch(requestRobots())
+    // onRequestRobots: () => requestRobots(dispatch)
   }
 }
 
 
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      robots: []
-      //Redux can replace your state. Will need need this 'searchfield' anymore.
-      // searchfield: ''
-    }
-  }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     robots: []
+  //     //Redux can replace your state. Will need need this 'searchfield' anymore.
+  //     // searchfield: ''
+  //   }
+  // }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users').then(response => {
-      return response.json();
-    }).then(users => {
-      this.setState({ robots: users })
-    })
-
+    // fetch('https://jsonplaceholder.typicode.com/users').then(response => {
+    //   return response.json();
+    // }).then(users => {
+    //   this.setState({ robots: users })
+    // })
+    this.props.onRequestRobots()
   }
 
   //With Redux, onSearchChange is now coming down as props so we don't need to declare it as a method
@@ -55,15 +62,14 @@ class App extends React.Component {
     //destructure
     //Will not need searchfield here anymore because now it's coming down as props
     // const { robots, searchfield } = this.state;
-    const { robots } = this.state;
-    const { searchField, onSearchChange } = this.props;
+    // const { robots } = this.state;
+    const { searchField, onSearchChange, robots, isPending } = this.props;
     const filteredRobots = robots.filter(r => {
       return r.name.toLowerCase().includes(searchField.toLowerCase())
     })
-    if (!robots.length) {
+    if (isPending) {
       return <h1 className="tc">Loading...</h1>
     } else {
-
       return (
         <div className="tc">
           <h1>RoboFriends</h1>
